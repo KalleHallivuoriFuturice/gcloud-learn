@@ -1,0 +1,10 @@
+#!/bin/bash
+
+THIS_DIR=$(cd -- $(dirname "$BASH_SOURCE"); pwd)
+CLOUDSDK_DEACTIVATED_CONFIG_NAME="$CLOUDSDK_ACTIVE_CONFIG_NAME" 
+export CLOUDSDK_ACTIVE_CONFIG_NAME="$CLOUDSDK_PREVIOUS_CONFIG_NAME"
+
+[ -n "$CLOUDSDK_DEACTIVATED_CONFIG_NAME" ] &&
+	gcloud config configurations delete --quiet "$CLOUDSDK_DEACTIVATED_CONFIG_NAME"
+
+export PATH=$(echo ":$PATH:" | sed 's#:'"$THIS_DIR"'[^:]*#:#g; s#^::*##; s#::*$##')

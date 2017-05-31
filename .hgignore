@@ -1,0 +1,3 @@
+syntax: regexp
+^activate$
+^google-cloud-sdk$
