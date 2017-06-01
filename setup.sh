@@ -6,11 +6,7 @@ SDK_URL=https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-
 
 cd $(dirname "$BASH_SOURCE")
 
-rm -rf activate google-cloud-sdk
-touch activate
-
 curl "$SDK_URL" | tar xzf -
-./google-cloud-sdk/install.sh --quiet --rc-path=$PWD/activate
-rm -f activate.backup
+./google-cloud-sdk/install.sh --quiet --command-completion=false --path-update=false
 
-cat source/activate-template.sh >> activate
+source activate

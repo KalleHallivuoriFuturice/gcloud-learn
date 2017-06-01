@@ -1,0 +1,24 @@
+
+# Maintain separate configuration for session in this project directory
+# to enable development along other setups
+# instead of hiding configuration outside this setup
+# or in a virtual host image "blob".
+
+THIS_DIR=$(cd -- $(dirname "$BASH_SOURCE"); pwd)
+CLOUDSDK_PREVIOUS_CONFIG_NAME="$CLOUDSDK_ACTIVE_CONFIG_NAME"
+GCLOUD_CONF_FILE="$THIS_DIR/.gcloud-configuration"
+export CLOUDSDK_ACTIVE_CONFIG_NAME=$(
+        echo "$THIS_DIR" | sed 's:^'$HOME'::; s/[^A-Za-z0-9]/-/g; s/^--*//'
+    )
+
+for INCLUDE in "$THIS_DIR/google-cloud-sdk/"*.bash.inc
+do
+    [ -f "$INCLUDE" ] && source "$INCLUDE"
+done
+
+if ! gcloud config configurations list --format='value(name)' | grep -q "^$CLOUDSDK_ACTIVE_CONFIG_NAME$"
+then
+    gcloud config configurations create --no-activate "$CLOUDSDK_ACTIVE_CONFIG_NAME"
+    [ -f "$GCLOUD_CONF_FILE" ] &&  # unfortunately gcloud does not provide abstraction for this
+        cp -f "$GCLOUD_CONF_FILE" "$HOME/.config/gcloud/configurations/config_$CLOUDSDK_ACTIVE_CONFIG_NAME"
+fi
