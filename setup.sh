@@ -10,3 +10,5 @@ curl "$SDK_URL" | tar xzf -
 ./google-cloud-sdk/install.sh --quiet --command-completion=false --path-update=false
 
 source activate
+
+gcloud auth login
