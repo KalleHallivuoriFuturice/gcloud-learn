@@ -1,2 +1,3 @@
 syntax: regexp
+^.gcloud-configuration$
 ^google-cloud-sdk$
