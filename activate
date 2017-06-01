@@ -30,3 +30,5 @@ alias save_gcloud_conf="
 
 export PYTHONPATH="$THIS_DIR/google-cloud-sdk/lib:$PYTHONPATH"
 export PS1="[$CLOUDSDK_ACTIVE_CONFIG_NAME] $PS1"
+
+source "$THIS_DIR/lib/utilities.sh"
