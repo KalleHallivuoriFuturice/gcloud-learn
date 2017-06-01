@@ -2,7 +2,10 @@
 
 set -e
 
-SDK_URL=https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-156.0.0-darwin-x86_64.tar.gz
+SDK_URL=$(
+    curl -s https://cloud.google.com/sdk/downloads |
+        perl -wne 'print /"([^"]*'$(uname -s)-$(uname -m)'\.tar\.gz)"/i'
+)
 
 cd $(dirname "$BASH_SOURCE")
 
