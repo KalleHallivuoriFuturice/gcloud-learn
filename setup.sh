@@ -20,6 +20,6 @@ echo '*** Create a test account or login with an existing one in your browser'
 
 gcloud auth login
 
-ensure_billing_account
+ensure_billing_for_project $(gcloud config list --format='value(core.project)')
 
 cat doc/after-setup.md
