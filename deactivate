@@ -16,4 +16,5 @@ then
 fi
 
 export PATH=$(echo ":$PATH:" | sed 's#:'"$THIS_DIR"'[^:]*#:#g; s#^::*##; s#::*$##')
+export PYTHONPATH=$(echo ":$PYTHONPATH:" | sed 's#:'"$THIS_DIR"'[^:]*#:#g; s#^::*##; s#::*$##')
 unset CLOUDSDK_PREVIOUS_CONFIG_NAME CLOUDSDK_DEACTIVATED_CONFIG_NAME THIS_DIR
