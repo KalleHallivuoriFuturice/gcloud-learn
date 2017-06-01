@@ -22,3 +22,5 @@ then
     [ -f "$GCLOUD_CONF_FILE" ] &&  # unfortunately gcloud does not provide abstraction for this
         cp -f "$GCLOUD_CONF_FILE" "$HOME/.config/gcloud/configurations/config_$CLOUDSDK_ACTIVE_CONFIG_NAME"
 fi
+
+export PS1="[$CLOUDSDK_ACTIVE_CONFIG_NAME] $PS1"
