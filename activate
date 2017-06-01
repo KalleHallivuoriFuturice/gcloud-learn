@@ -23,5 +23,10 @@ then
         cp -f "$GCLOUD_CONF_FILE" "$HOME/.config/gcloud/configurations/config_$CLOUDSDK_ACTIVE_CONFIG_NAME"
 fi
 
+alias save_gcloud_conf="
+    cp -f \"$HOME/.config/gcloud/configurations/config_$CLOUDSDK_ACTIVE_CONFIG_NAME\" \
+        \"$GCLOUD_CONF_FILE\"
+"
+
 export PYTHONPATH="$THIS_DIR/google-cloud-sdk/lib:$PYTHONPATH"
 export PS1="[$CLOUDSDK_ACTIVE_CONFIG_NAME] $PS1"

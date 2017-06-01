@@ -6,7 +6,7 @@ export PS1=$(echo "$PS1" | sed 's/^\['"$CLOUDSDK_ACTIVE_CONFIG_NAME"'\] //')
 
 if gcloud config configurations list --format='value(name)' | grep -q "^$CLOUDSDK_ACTIVE_CONFIG_NAME$"
 then
-    cp -f "$HOME/.config/gcloud/configurations/config_$CLOUDSDK_ACTIVE_CONFIG_NAME" "$GCLOUD_CONF_FILE"
+    save_gcloud_conf
 
     CLOUDSDK_DEACTIVATED_CONFIG_NAME="$CLOUDSDK_ACTIVE_CONFIG_NAME"
     export CLOUDSDK_ACTIVE_CONFIG_NAME="$CLOUDSDK_PREVIOUS_CONFIG_NAME"
@@ -17,4 +17,6 @@ fi
 
 export PATH=$(echo ":$PATH:" | sed 's#:'"$THIS_DIR"'[^:]*#:#g; s#^::*##; s#::*$##')
 export PYTHONPATH=$(echo ":$PYTHONPATH:" | sed 's#:'"$THIS_DIR"'[^:]*#:#g; s#^::*##; s#::*$##')
+
 unset CLOUDSDK_PREVIOUS_CONFIG_NAME CLOUDSDK_DEACTIVATED_CONFIG_NAME THIS_DIR
+unalias save_gcloud_conf
