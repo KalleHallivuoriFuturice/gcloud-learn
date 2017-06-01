@@ -11,7 +11,7 @@ cd $(dirname "$BASH_SOURCE")
 
 curl "$SDK_URL" | tar xzf -
 ./google-cloud-sdk/install.sh --quiet --command-completion=false --path-update=false \
-    --additional-components compute alpha
+    --additional-components alpha  # for linking billing account so we can compute
 
 source activate
 source lib/billing.sh
