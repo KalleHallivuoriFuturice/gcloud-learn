@@ -9,10 +9,16 @@ source "$(dirname "$BASH_SOURCE")/../lib/utilities.sh"
 has compute.region || gcloud config set compute/region europe-west1
 has compute.zone   || gcloud config set compute/zone europe-west1-c
 
-can compute instances describe "$NAME" ||
+can compute instances list --filter name="$NAME" ||
 gcloud compute instances create "$NAME" \
  --machine-type n1-standard-1 \
- --image ubuntu-14-04 \
+ --image-family=ubuntu-1404-lts --image-project=ubuntu-os-cloud \
  --metadata startup-script="$STARTUP"
 
-gcloud compute ssh "$NAME" -- uname -a
+echo "** Trying to access $NAME soon as it becomes available -- might take a while"
+
+while ! gcloud compute ssh "$NAME" -- uname -a
+do
+    echo -n .
+    sleep 1
+done
