@@ -5,7 +5,7 @@ check-operation () {
 }
 
 can () {
-    gcloud "$@" 2>&1 | grep -q .
+    gcloud "$@" 2>/dev/null | grep -q .
 }
 
 has () {
